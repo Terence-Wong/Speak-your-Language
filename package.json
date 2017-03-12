@@ -4,8 +4,7 @@
   "description": "nxthacks project",
   "main": "index.js",
   "scripts": {
-	"start" "node index.js",
-    "test": "test"
+  
   },
   "repository": {
     "type": "git",
