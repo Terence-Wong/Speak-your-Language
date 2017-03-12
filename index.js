@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 // Webhook validation
 app.get('/webhook', function(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
-      req.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
+      req.query['hub.verify_token'] === 'customToken') {
     console.log("Validating webhook");
     res.status(200).send(req.query['hub.challenge']);
   } else {
