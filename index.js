@@ -68,7 +68,14 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
   }
 });
-
+var LOCALE = {
+  "Hello": "Bonjour",
+  "hello": "bonjour",
+  "My name is %s": "Je m'appelle %s",
+};
+function gettext(string) {
+  return LOCALE[string] ? LOCALE[string] : string;
+}
 // Incoming events handling
 function receivedMessage(event) {
   var senderID = event.sender.id;
@@ -95,8 +102,11 @@ function receivedMessage(event) {
 	case 'hello':
 		sendTextMessage(senderID, "bonjour");
 		break;
+	case 'goodbye':
+		sendTextMessage(senderID, "au revoir");
+		break;
       default:
-        sendTextMessage(senderID, messageText);
+        sendTextMessage(senderID, gettext(messageText));
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
