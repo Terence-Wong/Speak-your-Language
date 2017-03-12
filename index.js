@@ -1,10 +1,10 @@
-'use strict'
-
-const express = require('express')
-const bodyParser = require('body-parser')
-const request = require('request')
-const app = express()
-const token = "<EAALBSAcx7ekBABqmgsd9MxISBZCZB7PAOVEv9b0zDrgOZAcTjm1RJ7jbnoV2giLUklqIUDb7QaZBZCzKwiYcmcKBfwZA6Sj9UWhwsRL97bZCvmNI3NT81S6SBRqhbioeMkUAPSwFATGykDzevKZCflJCLlm2HcnlsY2a9boSNYvDagZDZD>"
+//
+// This is main file containing code implementing the Express server and functionality for the Express echo bot.
+//
+'use strict';
+const express = require('express');
+const bodyParser = require('body-parser');
+const request = require('request');
 const path = require('path');
 var messengerButton = "<html><head><title>Facebook Messenger Bot</title></head><body><h1>Facebook Messenger Bot</h1>This is a bot based on Messenger Platform QuickStart. For more details, see their <a href=\"https://developers.facebook.com/docs/messenger-platform/guides/quick-start\">docs</a>.<footer id=\"gWidget\"></footer><script src=\"https://widget.gomix.me/widget.min.js\"></script></body></html>";
 
@@ -184,7 +184,7 @@ function sendGenericMessage(recipientId) {
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+    qs: { access_token: 'EAALBSAcx7ekBACvM1UTmOtn98Gu5VVhY6IKkdYQEIvrThwyjJOI8VBDMVv9P1RaU9snp48KCgNzC61CdwUyM1jtOgTZBlZAWCDCnERVEyydJfrHUrXgt46X88XbDkRslG7MhiBcdm4QXClYwpX9iJy7ZCzbZByqd2MWCb2dxWwZDZD' },
     method: 'POST',
     json: messageData
 
