@@ -71,7 +71,7 @@ app.post('/webhook', function (req, res) {
 var LOCALE = {
   "Hello": "Bonjour",
   "hello": "bonjour",
-  "My name is %s": "Je m'appelle %s",
+  "My name is \s": "Je m'appelle \s",
 };
 function gettext(string) {
   return LOCALE[string] ? LOCALE[string] : string;
