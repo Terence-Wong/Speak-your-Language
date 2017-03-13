@@ -7,7 +7,8 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const path = require('path');
 var messengerButton = "<html><head><title>Facebook Messenger Bot</title></head><body><h1>Facebook Messenger Bot</h1>This is a bot based on Messenger Platform QuickStart. For more details, see their <a href=\"https://developers.facebook.com/docs/messenger-platform/guides/quick-start\">docs</a>.<footer id=\"gWidget\"></footer><script src=\"https://widget.gomix.me/widget.min.js\"></script></body></html>";
-
+var link1 = "translate.yandex.net/api/v1.5/tr/translate?key=trnsl.1.1.20170312T182402Z.bdb6b677d43fcdc5.a76f1ca4719f8f58aa8227869f4623a6e115a326&text=";
+var link2 = "&lang=en-fr&[format=plain]";
 // The rest of the code implements the routes for our Express server.
 let app = express();
 
@@ -71,10 +72,52 @@ app.post('/webhook', function (req, res) {
 var LOCALE = {
   "Hello": "Bonjour",
   "hello": "bonjour",
-  "My name is \s": "Je m'appelle \s",
+  "My name is Leo" : "Je m'appelle Leo",
+  "Goodbye" : "Au revoir",
+  "I like coding" : "J'aime coder",
+  "Hackathons are fun" : "Hackathons sont amusants",
+  
+  
 };
-function gettext(string) {
-  return LOCALE[string] ? LOCALE[string] : string;
+
+function createCORSRequest( url) {
+	var xhr = new XMLHttpRequest();
+	if ("withCredentials" in xhr) {
+	// XHR for Chrome/Firefox/Opera/Safari.
+		xhr.open('GET', url, true);
+	} else if (typeof XDomainRequest != "undefined") {
+	// XDomainRequest for IE.
+		xhr = new XDomainRequest();
+		xhr.open(method, url);
+	} else {
+	// CORS not supported.
+		xhr = null;
+	}
+	return xhr;
+}
+
+// Make the actual CORS request.
+function makeCorsRequest(linker) {
+	// This is a sample server that supports CORS.
+	var url = '';
+	var xhr = createCORSRequest('GET', url);
+	if (!xhr) {
+		return 'CORS not supported';
+	}
+	// Response handlers.
+	xhr.onload = function() {
+		return xhr.responseText;
+	};
+	xhr.onerror = function() {
+		return 'Request Error'
+	};
+	xhr.send();
+}
+function translate(string) {
+  var comLink = "https://" + link1 + string + link2;
+  
+	
+  return linker(comLink);
 }
 // Incoming events handling
 function receivedMessage(event) {
@@ -96,9 +139,6 @@ function receivedMessage(event) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the template example. Otherwise, just echo the text we received.
     switch (messageText) {
-      case 'generic':
-        sendGenericMessage(senderID);
-        break;
 	case 'hello':
 		sendTextMessage(senderID, "bonjour");
 		break;
@@ -106,7 +146,8 @@ function receivedMessage(event) {
 		sendTextMessage(senderID, "au revoir");
 		break;
       default:
-        sendTextMessage(senderID, gettext(messageText));
+        sendTextMessage(senderID, translate(messageText));
+		break;
     }
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
@@ -142,53 +183,6 @@ function sendTextMessage(recipientId, messageText) {
       text: messageText
     }
   };
-
-  callSendAPI(messageData);
-}
-
-function sendGenericMessage(recipientId) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "generic",
-          elements: [{
-            title: "rift",
-            subtitle: "Next-generation virtual reality",
-            item_url: "https://www.oculus.com/en-us/rift/",               
-            image_url: "http://messengerdemo.parseapp.com/img/rift.png",
-            buttons: [{
-              type: "web_url",
-              url: "https://www.oculus.com/en-us/rift/",
-              title: "Open Web URL"
-            }, {
-              type: "postback",
-              title: "Call Postback",
-              payload: "Payload for first bubble",
-            }],
-          }, {
-            title: "touch",
-            subtitle: "Your Hands, Now in VR",
-            item_url: "https://www.oculus.com/en-us/touch/",               
-            image_url: "http://messengerdemo.parseapp.com/img/touch.png",
-            buttons: [{
-              type: "web_url",
-              url: "https://www.oculus.com/en-us/touch/",
-              title: "Open Web URL"
-            }, {
-              type: "postback",
-              title: "Call Postback",
-              payload: "Payload for second bubble",
-            }]
-          }]
-        }
-      }
-    }
-  };  
 
   callSendAPI(messageData);
 }
