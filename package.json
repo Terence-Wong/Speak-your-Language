@@ -14,7 +14,7 @@
     "messenger",
     "bot"
   ],
-  "author": "Enkrypton",
+  "author": "Terence-Wong",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.1",
