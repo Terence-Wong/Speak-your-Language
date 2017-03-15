@@ -68,7 +68,9 @@ app.post('/webhook', function (req, res) {
     // will time out and we will keep trying to resend.
     res.sendStatus(200);
   }
-});
+})
+;
+//hard code in case we screw up :)
 var LOCALE = {
   "Hello": "Bonjour",
   "hello": "bonjour",

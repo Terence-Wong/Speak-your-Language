@@ -14,7 +14,7 @@
     "messenger",
     "bot"
   ],
-  "author": "Enkrypton",
+  "author": "MemeMachines",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.1",
