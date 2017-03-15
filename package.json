@@ -14,7 +14,11 @@
     "messenger",
     "bot"
   ],
+<<<<<<< HEAD
   "author": "MemeMachines",
+=======
+  "author": "Terence-Wong",
+>>>>>>> 9d3ad68db96c94bb23b7d84d464b1a6d5dd5d4ed
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.1",
